@@ -1,9 +1,9 @@
 const {
   logger,
   fs,
+  globby,
   path: { resolve }
 } = require('@vuepress/shared-utils')
-const readdirSync = dir => (fs.existsSync(dir) && fs.readdirSync(dir)) || []
 
 module.exports = class ThemeAPI {
   constructor (theme, parentTheme) {
@@ -105,10 +105,12 @@ module.exports = class ThemeAPI {
 
 function resolveSFCs (dirs) {
   return dirs
-    .map(layoutDir =>
-      readdirSync(layoutDir)
-        .filter(filename => filename.endsWith('.vue'))
-        .map(filename => {
+    .map((layoutDir) =>
+      (fs.existsSync(layoutDir)
+        ? globby.sync('**/*.vue', { cwd: layoutDir, absolute: false })
+        : []
+      )
+        .map((filename) => {
           const componentName = getComponentName(filename)
           return {
             filename,
@@ -131,7 +133,7 @@ function resolveSFCs (dirs) {
 /**
  * normalize component name
  *
- * @param {strin} filename
+ * @param {string} filename
  * @returns {string}
  */
 

@@ -4,9 +4,13 @@
 
 ```markdown
 ---
-title: Blogging Like a Hacker
-lang: en-US
+title: Blogging with VuePress
+lang: zh-CN
 ---
+
+# {{ $frontmatter.title }}
+
+My blog post is written in {{ $frontmatter.lang }}.
 ```
 
 在这些三条虚线之间，你可以设置预定义变量（参见[下面](#预定义变量)），甚至可以创建自己的自定义变量。 然后，您可以使用 <code> [$frontmatter](global-computed.md#frontmatter)</code> 在页面的其余部分、以及所有的自定义和主题组件访问这些变量。
@@ -107,11 +111,39 @@ meta:
 - 类型: `boolean`
 - 默认值: `undefined`
 
-参考: [默认值 Theme Config > Disable the Navbar](../theme/default-theme-config.md#禁用导航栏).
+参考: [默认主题配置 > 禁用导航栏](../theme/default-theme-config.md#禁用导航栏)。
 
 ### sidebar
 
 - 类型: `boolean|'auto'`
 - 默认值: `undefined`
 
-参考: [默认值 Theme Config > Sidebar](../theme/default-theme-config.md#侧边栏).
+参考: [默认主题配置 > 侧边栏](../theme/default-theme-config.md#侧边栏)。
+
+### prev
+
+- 类型: `boolean|string`
+- 默认值: `undefined`
+
+参考: [默认主题配置 > 上 / 下一篇链接](../theme/default-theme-config.md#上-下一篇链接)。
+
+### next
+
+- 类型: `boolean|string`
+- 默认值: `undefined`
+
+参考: [默认主题配置 > 上 / 下一篇链接](../theme/default-theme-config.md#上-下一篇链接)。
+
+### search
+
+- 类型: `boolean`
+- 默认值: `undefined`
+
+参考: [默认主题配置 > 内置搜索](../theme/default-theme-config.md#内置搜索)。
+
+### tags
+
+- 类型: `array`
+- 默认值: `undefined`
+
+参考: [默认主题配置 > 内置搜索](../theme/default-theme-config.md#内置搜索)。

@@ -7,6 +7,17 @@ sidebar: auto
 
 <Bit/>
 
+## Overview
+
+VuePress only supported these configurations
+
+- `.vuepress/config.js`
+- `.vuepress/config.yml`
+- `.vuepress/config.toml`
+- `.vuepress/config.ts` <Badge text="1.9.0+" />
+
+Noted that `.vuepress/config.ts` is supported from `1.9`, for more information, please head [TypeScript as Config](../guide/typescript-as-config.md)
+
 ## Basic Config
 
 ### base
@@ -93,7 +104,7 @@ Specify locales for i18n support. For more details, see the guide on [Internatio
 - Type: `Function`
 - Default: `() => true`
 
-A function to control what files should have `<link rel="preload">` resource hints generated. See [shouldPrefetch](https://ssr.vuejs.org/api/#shouldprefetch).
+A function to control what files should have `<link rel="prefetch">` resource hints generated. See [shouldPrefetch](https://ssr.vuejs.org/api/#shouldprefetch).
 
 ### cache
 
@@ -142,23 +153,35 @@ Specify which pattern of files you want to be resolved.
 
 ### palette.styl
 
-To apply simple color overrides to the styling of the [default preset](https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/core/lib/client/style/config.styl) or define some color variables for using later, you can create a `.vuepress/styles/palette.styl` file.
+To apply simple overrides to the styling of the [default preset](https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/core/lib/client/style/config.styl) or define some variables to use later, you can create a `.vuepress/styles/palette.styl` file.
 
-There are some color variables you can tweak:
+There are some predefined variables you can tweak:
 
 ``` stylus
-// showing default values
+// colors
 $accentColor = #3eaf7c
 $textColor = #2c3e50
 $borderColor = #eaecef
 $codeBgColor = #282c34
+$arrowBgColor = #ccc
 $badgeTipColor = #42b983
 $badgeWarningColor = darken(#ffe564, 35%)
 $badgeErrorColor = #DA5961
+
+// layout
+$navbarHeight = 3.6rem
+$sidebarWidth = 20rem
+$contentWidth = 740px
+$homePageWidth = 960px
+
+// responsive breakpoints
+$MQNarrow = 959px
+$MQMobile = 719px
+$MQMobileNarrow = 419px
 ```
 
 ::: danger Note
-You should ONLY write color variables in this file. Since `palette.styl` will be imported at the end of the root Stylus config file, as a config, several files will use it, so once you wrote styles here, your style would be duplicated by multiple times.
+You should ONLY define variables in this file. Since `palette.styl` will be imported at the end of the root Stylus config file, as a config, several files will use it, so once you wrote styles here, your style would be duplicated by multiple times.
 :::
 
 ### index.styl
@@ -170,6 +193,36 @@ VuePress provides a convenient way to add extra styles. You can create a `.vuepr
   font-size 30px
 }
 ```
+
+::: warning
+Because of the behavior behind the scenes, in both `palette.styl` and `index.styl`, the normal `.css` style sheets are not allowed to be imported by [@import / @require](https://stylus-lang.com/docs/import.html) from **relative paths**.
+:::
+
+::: details What if you have to import / require normal `css` style sheets?
+
+Use **Absolute path**.
+
+1. Importing / requiring a file from an npm package:
+
+``` stylus
+@require '~my-css-package/style.css'
+```
+
+2. Importing / requiring a local file:
+
+As there’s an [alias](../plugin/option-api.html#alias) option out there, using webpack alias must be the simplest approach. For example:
+
+```js
+// config.js
+ alias: {
+    'styles': path.resolve(__dirname, './styles')
+  }
+```
+
+``` stylus
+@require '~styles/style.css'
+```
+:::
 
 **Also see:**
 
@@ -234,6 +287,13 @@ Function for transforming [header](../miscellaneous/glossary.md#headers) texts i
 - Default: `{ permalink: true, permalinkBefore: true, permalinkSymbol: '#' }`
 
 Options for [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor). (Note: prefer `markdown.slugify` to customize header ids.)
+
+### markdown.pageSuffix
+
+- Type: `string`
+- Default: `.html`
+
+Option to customize internal links to be compatible when using the [vuepress-plugin-clean-urls](https://vuepress-community.netlify.app/en/plugins/clean-urls/).
 
 ### markdown.externalLinks
 
@@ -309,7 +369,7 @@ This option is also included in [Plugin API](../plugin/option-api.md#extendmarkd
 - Default: `['h2', 'h3']`
 
 While preparing the page, headers are extracted from the Markdown file and stored in `this.$page.headers`. By default, VuePress will extract `h2` and `h3` elements for you. You can override the headers it pulls out in your `markdown` options.
- 
+
 ``` js
 module.exports = {
   markdown: {
@@ -331,7 +391,7 @@ VuePress comes with built-in webpack config for the CSS pre-processors listed be
 
 Options for [postcss-loader](https://github.com/postcss/postcss-loader). Note specifying this value will overwrite autoprefixer and you will need to include it yourself.
 
-### Stylus
+### stylus
 
 - Type: `Object`
 - Default: `{ preferPathResolver: 'webpack' }`
@@ -345,7 +405,7 @@ Options for [stylus-loader](https://github.com/shama/stylus-loader).
 
 Options for [sass-loader](https://github.com/webpack-contrib/sass-loader) to load `*.scss` files.
 
-### Sass
+### sass
 
 - Type: `Object`
 - Default: `{ indentedSyntax: true }`

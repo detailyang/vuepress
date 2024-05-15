@@ -10,8 +10,13 @@
         v-if="enabled"
         class="sw-update-popup"
       >
-        {{ message }}<br>
-        <button @click="reload">{{ buttonText }}</button>
+        {{ message }}
+
+        <br>
+
+        <button @click="reload">
+          {{ buttonText }}
+        </button>
       </div>
     </slot>
   </transition>
@@ -24,17 +29,12 @@ import { normalizeConfig } from '@app/util'
 import { popupConfig as defaultPopupConfig } from './i18n'
 
 export default {
+  name: 'SWUpdatePopup',
+
   data () {
     return {
       rawPopupConfig: SW_UPDATE_POPUP,
       updateEvent: null
-    }
-  },
-
-  created () {
-    event.$on('sw-updated', this.onSWUpdated)
-    if (SW_UPDATE_POPUP === true) {
-      this.rawPopupConfig = defaultPopupConfig
     }
   },
 
@@ -55,6 +55,13 @@ export default {
     buttonText () {
       const c = this.popupConfig
       return (c && c.buttonText) || defaultPopupConfig['/'].buttonText
+    }
+  },
+
+  created () {
+    event.$on('sw-updated', this.onSWUpdated)
+    if (SW_UPDATE_POPUP === true) {
+      this.rawPopupConfig = defaultPopupConfig
     }
   },
 
@@ -86,7 +93,7 @@ export default {
   background: #fff;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   text-align: center;
-  z-index: 2;
+  z-index: 3;
 }
 
 .sw-update-popup > button {

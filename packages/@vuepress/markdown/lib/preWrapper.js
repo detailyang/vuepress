@@ -8,12 +8,15 @@
 //   4. <!--afterend-->
 
 module.exports = md => {
-  const fence = md.renderer.rules.fence
-  md.renderer.rules.fence = (...args) => {
+  const wrap = (wrapped) => (...args) => {
     const [tokens, idx] = args
     const token = tokens[idx]
-    const rawCode = fence(...args)
-    return `<!--beforebegin--><div class="language-${token.info.trim()} extra-class">`
+    const rawCode = wrapped(...args)
+    const tokenInfo = token.info.trim().replace(/\"/g, '\'')
+    return `<!--beforebegin--><div class="language-${tokenInfo} extra-class">`
     + `<!--afterbegin-->${rawCode}<!--beforeend--></div><!--afterend-->`
   }
+  const { fence, code_block: codeBlock } = md.renderer.rules
+  md.renderer.rules.fence = wrap(fence)
+  md.renderer.rules.code_block = wrap(codeBlock)
 }

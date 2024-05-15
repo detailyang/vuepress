@@ -2,13 +2,8 @@
 home: true
 heroImage: /hero.png
 actionText: Get Started →
-actionLink: /guide/
-footer: MIT Licensed | Copyright © 2018-present Evan You
+actionLink: /guide/getting-started.html
 ---
-
-<div style="text-align: center">
-  <Bit/>
-</div>
 
 <div class="features">
   <div class="feature">
@@ -25,23 +20,6 @@ footer: MIT Licensed | Copyright © 2018-present Evan You
   </div>
 </div>
 
-### As Easy as 1, 2, 3
-
-``` bash
-# install
-yarn global add vuepress
-# OR npm install -g vuepress
-
-# create a markdown file
-echo '# Hello VuePress' > README.md
-
-# start writing
-vuepress dev
-
-# build to static files
-vuepress build
-```
-
-::: warning COMPATIBILITY NOTE
-VuePress requires Node.js >= 8.6.
+::: slot footer
+MIT Licensed | Copyright © 2018-present [Evan You](https://github.com/yyx990803)
 :::

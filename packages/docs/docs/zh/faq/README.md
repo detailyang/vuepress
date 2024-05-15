@@ -6,7 +6,7 @@ sidebar: auto
 
 ## 为什么不能把 `palette.styl` 和 `index.styl` 合并到一个 API?
 
-`palete.styl` 负责全局颜色设置。在编译期间，主题颜色常量应该首先由预处理器解析，然后应用于全局上下文。
+`palette.styl` 负责全局颜色设置。在编译期间，主题颜色常量应该首先由预处理器解析，然后应用于全局上下文。
 
 但对于 `index.styl`，它的工作是重写应用的默认样式。根据 CSS 的优先级原则，后一种样式具有更高的优先级，因此应该在 CSS 文件的末尾生成。
 
@@ -54,7 +54,7 @@ module.exports = (options, ctx) => ({
 **比如：**
 
 - [@vuepress/plugin-register-components](https://github.com/vuejs/vuepress/tree/master/packages/@vuepress/plugin-register-components/index.js#L24)：在客户端自动注册组件
-- [@vuepress/plugin-pagination](https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/plugin-pagination/index.js#L14)：自动注入 Vue 插件来拓展客户端 API
+- [@vuepress/plugin-google-analytics](https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/plugin-google-analytics/enhanceAppFile.js)：自动配置 Google Analytics
 
 ## 什么时候需要使用 `clientDynamicModules`?
 
@@ -63,5 +63,5 @@ module.exports = (options, ctx) => ({
 
 **比如：**
 
-- [@vuepress/plugin-blog](https://github.com/ulivz/vuepress-plugin-blog/blob/master/src/index.ts#L167)：使用编译期元数据生成一些博客相关的动态模块并通过 `enhanceAppFiles` 将他们在客户端初始化
+- [@vuepress/plugin-blog](https://github.com/vuepressjs/vuepress-plugin-blog/blob/master/src/node/index.ts#L208)：使用编译期元数据生成一些博客相关的动态模块并通过 `enhanceAppFiles` 将他们在客户端初始化
 

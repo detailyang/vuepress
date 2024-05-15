@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://vuepress.vuejs.org/" target="_blank">
+  <a href="https://vuepress.vuejs.org/" target="_blank" rel="noopener noreferrer">
     <img width="180" src="https://raw.githubusercontent.com/vuejs/vuepress/master/packages/docs/docs/.vuepress/public/hero.png" alt="logo">
   </a>
 </p>
@@ -32,7 +32,7 @@ The docs are available at <https://vuepress.vuejs.org>
 Want to contribute? Check our [issues for beginners](https://github.com/vuejs/vuepress/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)!
 
 ```bash
-yarn bootstrap # Install and link dependencies for this lerna repo
+yarn # Install and link dependencies for this monorepo
 yarn dev  # serves VuePress' own docs with itself
 yarn test # make sure your code change pass the test
 ```

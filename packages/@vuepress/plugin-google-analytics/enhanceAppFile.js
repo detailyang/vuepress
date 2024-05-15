@@ -18,10 +18,9 @@ export default ({ router }) => {
 
     ga('create', GA_ID, 'auto')
     ga('set', 'anonymizeIp', true)
-    ga('send', 'pageview')
 
     router.afterEach(function (to) {
-      ga('set', 'page', to.fullPath)
+      ga('set', 'page', router.app.$withBase(to.fullPath))
       ga('send', 'pageview')
     })
   }

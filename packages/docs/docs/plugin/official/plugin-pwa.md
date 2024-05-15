@@ -37,6 +37,7 @@ Here is an example of a fully PWA-compliant configuration with VuePress:
 module.exports = {
   head: [
     ['link', { rel: 'icon', href: '/logo.png' }],
+    ['link', { rel: 'icon', href: 'favicon.ico', type: 'image/x-icon' }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
@@ -46,10 +47,15 @@ module.exports = {
     ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
   ],
-  plugins: ['@vuepress/pwa', {
-      serviceWorker: true,
-      updatePopup: true
-  }],
+  plugins: [
+    [
+      '@vuepress/pwa',
+      {
+        serviceWorker: true,
+        updatePopup: true
+      }
+    ]
+  ],
 }
 ```
 
@@ -214,9 +220,9 @@ First, you need to create a global component (e.g. `MySWUpdatePopup`) at `.vuepr
 
 ```vue
 <template>
-  <SWUpdatePopup>
+  <SWUpdatePopup v-slot="{ enabled, reload, message, buttonText }">
     <div
-      v-slot="{ enabled, reload, message, buttonText }"
+      v-if="enabled"
       class="my-sw-update-popup">
       {{ message }}<br>
       <button @click="reload">{{ buttonText }}</button>

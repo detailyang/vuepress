@@ -26,7 +26,7 @@ module.exports = {
 为了让你的网站完全地兼容 PWA，你需要:
 
 - 在 `.vuepress/public` 提供 Manifest 和 icons
-- 在 `.vuepress/config.js` 添加正確的 [head links](/config/#head)(参见下面例子).
+- 在 `.vuepress/config.js` 添加正确的 [head links](/config/#head)(参见下面例子).
 
 更多细节，请参见 [MDN docs about the Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest).
 :::
@@ -214,9 +214,9 @@ module.exports = {
 
 ```vue
 <template>
-  <SWUpdatePopup>
+  <SWUpdatePopup v-slot="{ enabled, reload, message, buttonText }">
     <div
-      v-slot="{ enabled, reload, message, buttonText }"
+      v-if="enabled"
       class="my-sw-update-popup">
       {{ message }}<br>
       <button @click="reload">{{ buttonText }}</button>
